@@ -3,8 +3,7 @@ var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
 var minifyCss = require('gulp-minify-css');
 
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
+var imageminJpegtran = require('imagemin-jpegtran');
 
 gulp.task('compress-js', function() {
   return gulp.src('js/*.js')
@@ -39,11 +38,7 @@ gulp.task('rename-css', function() {
 }); 
 
 gulp.task('img-compress', function () {
-    return gulp.src('image/*')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
+    return gulp.src('image/*.jpg')
+        .pipe(imageminJpegtran({progressive: true})())
         .pipe(gulp.dest('image-compress'));
 });
